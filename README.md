@@ -2,7 +2,7 @@
 
 Agente conversacional que analisa dados financeiros de um cliente fictício e traduz os resultados em orientações claras, sem jargão e sem inventar números.
 
-Desenvolvido como entrega do laboratório **"Construa seu Assistente Virtual com Inteligência Artificial"** da [DIO](https://www.dio.me/).
+Desenvolvido como entrega do laboratório **"Construa seu Assistente Virtual com Inteligência Artificial"** da [DIO](https://www.dio.me/) para o bootcamp [Bradesco - GenAI & Dados](https://web.dio.me/track/bradesco-genai-dados).
 
 ## O que o VIT faz
 
