@@ -51,8 +51,8 @@ flowchart TD
 
 ```bash
 # 1. Clone o repositório
-git clone https://github.com/EduTNV/dio-lab-bia-do-futuro-Projeto0-Eduardo.git
-cd dio-lab-bia-do-futuro-Projeto0-Eduardo
+git clone https://github.com/EduTNV/Projeto-Final-DIO-Bradesco-Eduardo-VIT.git
+cd Projeto-Final-DIO-Bradesco-Eduardo-VIT
 
 # 2. Instale as dependências
 pip install -r src/requirements.txt
