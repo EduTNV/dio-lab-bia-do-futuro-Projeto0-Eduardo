@@ -1,149 +1,91 @@
-# 🤖 Agente Financeiro Inteligente com IA Generativa
+# VIT — Planejador Financeiro com IA Generativa
 
-## Contexto
+Agente conversacional que analisa dados financeiros de um cliente fictício e traduz os resultados em orientações claras, sem jargão e sem inventar números.
 
-Os assistentes virtuais no setor financeiro estão evoluindo de simples chatbots reativos para **agentes inteligentes e proativos**. Neste desafio, você vai idealizar e prototipar um agente financeiro que utiliza IA Generativa para:
+Desenvolvido como entrega do laboratório **"BIA do Futuro"** da [DIO](https://www.dio.me/).
 
-- **Antecipar necessidades** ao invés de apenas responder perguntas
-- **Personalizar** sugestões com base no contexto de cada cliente
-- **Cocriar soluções** financeiras de forma consultiva
-- **Garantir segurança** e confiabilidade nas respostas (anti-alucinação)
+## O que o VIT faz
 
-> [!TIP]
-> Na pasta [`examples/`](./examples/) você encontra referências de implementação para cada etapa deste desafio.
+- Processa um extrato de transações e calcula margem livre, gastos por categoria e progresso de metas
+- Apresenta os resultados em linguagem natural via chat, usando o modelo Gemini (`gemini-3.1-flash-lite-preview`)
+- Filtra produtos financeiros de acordo com o perfil de risco do cliente
+- Recusa recomendações fora do catálogo, tentativas de prompt injection, requisições de dados bancários e conteúdo ilícito
 
----
+## O que o VIT NÃO faz
 
-## O Que Você Deve Entregar
+- Não calcula nada — todos os números vêm do backend em Python/Pandas
+- Não executa, agenda ou autoriza transações
+- Não recomenda ativos individuais (ações, cripto)
+- Não projeta rendimentos em valor absoluto
+- Não armazena dados entre sessões
 
-### 1. Documentação do Agente
+## Arquitetura
 
-Defina **o que** seu agente faz e **como** ele funciona:
+```
+Usuário → Streamlit (UI) → AgenteVIT (orquestrador)
+                                ├── MotorAnalytics (Pandas) → calcula contexto
+                                ├── Gemini API → gera resposta em linguagem natural
+                                └── CamadaCompliance → valida antes de entregar
+```
 
-- **Caso de Uso:** Qual problema financeiro ele resolve? (ex: consultoria de investimentos, planejamento de metas, alertas de gastos)
-- **Persona e Tom de Voz:** Como o agente se comporta e se comunica?
-- **Arquitetura:** Fluxo de dados e integração com a base de conhecimento
-- **Segurança:** Como evitar alucinações e garantir respostas confiáveis?
+## Como Rodar
 
-📄 **Template:** [`docs/01-documentacao-agente.md`](./docs/01-documentacao-agente.md)
+```bash
+# 1. Clone o repositório
+git clone https://github.com/EduTNV/dio-lab-bia-do-futuro-Projeto0-Eduardo.git
+cd dio-lab-bia-do-futuro-Projeto0-Eduardo
 
----
+# 2. Instale as dependências
+pip install -r src/requirements.txt
 
-### 2. Base de Conhecimento
+# 3. Configure a chave de API
+cp .env.example .env
+# Edite o .env e coloque sua GEMINI_API_KEY do Google AI Studio
 
-Utilize os **dados mockados** disponíveis na pasta [`data/`](./data/) para alimentar seu agente:
+# 4. Rode a aplicação
+cd src
+streamlit run app.py
+```
 
-| Arquivo | Formato | Descrição |
-|---------|---------|-----------|
-| `transacoes.csv` | CSV | Histórico de transações do cliente |
-| `historico_atendimento.csv` | CSV | Histórico de atendimentos anteriores |
-| `perfil_investidor.json` | JSON | Perfil e preferências do cliente |
-| `produtos_financeiros.json` | JSON | Produtos e serviços disponíveis |
-
-Você pode adaptar ou expandir esses dados conforme seu caso de uso.
-
-📄 **Template:** [`docs/02-base-conhecimento.md`](./docs/02-base-conhecimento.md)
-
----
-
-### 3. Prompts do Agente
-
-Documente os prompts que definem o comportamento do seu agente:
-
-- **System Prompt:** Instruções gerais de comportamento e restrições
-- **Exemplos de Interação:** Cenários de uso com entrada e saída esperada
-- **Tratamento de Edge Cases:** Como o agente lida com situações limite
-
-📄 **Template:** [`docs/03-prompts.md`](./docs/03-prompts.md)
-
----
-
-### 4. Aplicação Funcional
-
-Desenvolva um **protótipo funcional** do seu agente:
-
-- Chatbot interativo (sugestão: Streamlit, Gradio ou similar)
-- Integração com LLM (via API ou modelo local)
-- Conexão com a base de conhecimento
-
-📁 **Pasta:** [`src/`](./src/)
-
----
-
-### 5. Avaliação e Métricas
-
-Descreva como você avalia a qualidade do seu agente:
-
-**Métricas Sugeridas:**
-- Precisão/assertividade das respostas
-- Taxa de respostas seguras (sem alucinações)
-- Coerência com o perfil do cliente
-
-📄 **Template:** [`docs/04-metricas.md`](./docs/04-metricas.md)
-
----
-
-### 6. Pitch
-
-Grave um **pitch de 3 minutos** (estilo elevador) apresentando:
-
-- Qual problema seu agente resolve?
-- Como ele funciona na prática?
-- Por que essa solução é inovadora?
-
-📄 **Template:** [`docs/05-pitch.md`](./docs/05-pitch.md)
-
----
-
-## Ferramentas Sugeridas
-
-Todas as ferramentas abaixo possuem versões gratuitas:
-
-| Categoria | Ferramentas |
-|-----------|-------------|
-| **LLMs** | [ChatGPT](https://chat.openai.com/), [Copilot](https://copilot.microsoft.com/), [Gemini](https://gemini.google.com/), [Claude](https://claude.ai/), [Ollama](https://ollama.ai/) |
-| **Desenvolvimento** | [Streamlit](https://streamlit.io/), [Gradio](https://www.gradio.app/), [Google Colab](https://colab.research.google.com/) |
-| **Orquestração** | [LangChain](https://www.langchain.com/), [LangFlow](https://www.langflow.org/), [CrewAI](https://www.crewai.com/) |
-| **Diagramas** | [Mermaid](https://mermaid.js.org/), [Draw.io](https://app.diagrams.net/), [Excalidraw](https://excalidraw.com/) |
-
----
+A aplicação estará disponível em `http://localhost:8501`.
 
 ## Estrutura do Repositório
 
 ```
-📁 lab-agente-financeiro/
+├── data/                         # Dados sintéticos do cliente fictício
+│   ├── transacoes.csv
+│   ├── perfil_investidor.json
+│   ├── produtos_financeiros.json
+│   └── historico_atendimento.csv
 │
-├── 📄 README.md
+├── docs/                         # Documentação do projeto
+│   ├── 01-documentacao-agente.md
+│   ├── 02-base-conhecimento.md
+│   ├── 03-prompts.md
+│   ├── 04-metricas.md
+│   └── 05-pitch.md
 │
-├── 📁 data/                          # Dados mockados para o agente
-│   ├── historico_atendimento.csv     # Histórico de atendimentos (CSV)
-│   ├── perfil_investidor.json        # Perfil do cliente (JSON)
-│   ├── produtos_financeiros.json     # Produtos disponíveis (JSON)
-│   └── transacoes.csv                # Histórico de transações (CSV)
+├── src/                          # Código-fonte
+│   ├── app.py
+│   ├── agente.py
+│   ├── analytics.py
+│   ├── compliance.py
+│   ├── models.py
+│   ├── config.py
+│   └── requirements.txt
 │
-├── 📁 docs/                          # Documentação do projeto
-│   ├── 01-documentacao-agente.md     # Caso de uso e arquitetura
-│   ├── 02-base-conhecimento.md       # Estratégia de dados
-│   ├── 03-prompts.md                 # Engenharia de prompts
-│   ├── 04-metricas.md                # Avaliação e métricas
-│   └── 05-pitch.md                   # Roteiro do pitch
-│
-├── 📁 src/                           # Código da aplicação
-│   └── app.py                        # (exemplo de estrutura)
-│
-├── 📁 assets/                        # Imagens e diagramas
-│   └── ...
-│
-└── 📁 examples/                      # Referências e exemplos
-    └── README.md
+├── .env.example                  # Template de variáveis de ambiente
+├── .gitignore
+└── README.md
 ```
 
----
+## Stack
 
-## Dicas Finais
-
-1. **Comece pelo prompt:** Um bom system prompt é a base de um agente eficaz
-2. **Use os dados mockados:** Eles garantem consistência e evitam problemas com dados sensíveis
-3. **Foque na segurança:** No setor financeiro, evitar alucinações é crítico
-4. **Teste cenários reais:** Simule perguntas que um cliente faria de verdade
-5. **Seja direto no pitch:** 3 minutos passam rápido, vá ao ponto
+| Componente | Tecnologia |
+|-----------|-----------|
+| Interface | Streamlit |
+| LLM | Google Gemini API (gemini-3.1-flash-lite-preview) |
+| SDK | google-genai >= 1.0.0 |
+| Processamento | Python + Pandas |
+| Validação | Pydantic |
+| Compliance | Regex + validação numérica contra contexto |

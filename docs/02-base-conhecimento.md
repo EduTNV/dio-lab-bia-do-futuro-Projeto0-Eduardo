@@ -27,7 +27,7 @@ Os arquivos mockados foram utilizados sem alteração estrutural, mas com duas d
 
 ### Como os dados são carregados?
 
-Todos os arquivos são carregados no início da sessão pelo backend FastAPI, antes de qualquer chamada ao LLM. O fluxo é:
+Todos os arquivos são carregados no início da sessão pelo orquestrador Python, antes de qualquer chamada ao LLM. O fluxo é:
 
 1. `perfil_investidor.json` é lido e validado via Pydantic
 2. `transacoes.csv` é processado pelo Pandas, que gera os agregados (totais por categoria, margem livre)

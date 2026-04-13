@@ -1,31 +1,36 @@
-# Código da Aplicação
+# Código-Fonte
 
-Esta pasta contém o código do seu agente financeiro.
-
-## Estrutura Sugerida
+## Estrutura
 
 ```
 src/
-├── app.py              # Aplicação principal (Streamlit/Gradio)
-├── agente.py           # Lógica do agente
-├── config.py           # Configurações (API keys, etc.)
-└── requirements.txt    # Dependências
-```
-
-## Exemplo de requirements.txt
-
-```
-streamlit
-openai
-python-dotenv
+├── app.py              # Interface Streamlit (chat + sidebar)
+├── agente.py           # Orquestrador: monta contexto, chama Gemini, valida resposta
+├── analytics.py        # Motor de cálculo financeiro (Pandas)
+├── compliance.py       # Middleware de validação de saída (integridade numérica + PII)
+├── models.py           # Modelos Pydantic (Transacao, PerfilInvestidor, ContextoSessao)
+├── config.py           # Carregamento de variáveis de ambiente
+└── requirements.txt    # Dependências do projeto
 ```
 
 ## Como Rodar
 
 ```bash
-# Instalar dependências
-pip install -r requirements.txt
+# Na raiz do projeto
+pip install -r src/requirements.txt
 
-# Rodar a aplicação
+# Iniciar a aplicação
+cd src
 streamlit run app.py
+```
+
+A aplicação estará disponível em `http://localhost:8501`.
+
+## Variáveis de Ambiente
+
+Copie o `.env.example` da raiz para `.env` e preencha sua chave:
+
+```
+GEMINI_API_KEY=sua_chave_do_google_ai_studio
+DATA_DIR=data/
 ```
