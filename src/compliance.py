@@ -26,7 +26,6 @@ class CamadaCompliance:
     RE_CONTA_BANCARIA = re.compile(r"\d{4,6}-?\d{1}")
 
     def __init__(self) -> None:
-        # Contador de respostas bloqueadas (alimenta métrica de taxa de fallback)
         self.total_bloqueios: int = 0
 
     def validar(

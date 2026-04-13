@@ -1,0 +1,554 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VIT - Planejador Financeiro | Pitch Deck</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500&family=Inter:wght@300;400;500;600&family=Space+Grotesk:wght@500;700&display=swap"
+        rel="stylesheet">
+    <style>
+        :root {
+            /* Theme: Dark Tech Finance */
+            --bg-color: #0b0f19;
+            --surface: #141b2d;
+            --surface-hover: #1e293b;
+            --primary: #00f0ff;
+            /* Cyan Neon */
+            --secondary: #00ff9d;
+            /* Emerald Neon */
+            --text-main: #f8fafc;
+            --text-muted: #94a3b8;
+            --border: rgba(0, 240, 255, 0.2);
+            --glow: 0 0 20px rgba(0, 240, 255, 0.4);
+            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        h1,
+        h2,
+        h3,
+        .brand {
+            font-family: 'Space Grotesk', sans-serif;
+        }
+
+        .code-font {
+            font-family: 'Fira Code', monospace;
+        }
+
+        /* Navbar */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            padding: 1rem 5%;
+            background: rgba(11, 15, 25, 0.9);
+            backdrop-filter: blur(10px);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 1000;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .brand {
+            font-size: 1.5rem;
+            font-weight: 700;
+            background: -webkit-linear-gradient(45deg, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .nav-links a {
+            color: var(--text-main);
+            text-decoration: none;
+            margin-left: 2rem;
+            font-size: 0.9rem;
+            font-weight: 500;
+            transition: var(--transition);
+        }
+
+        .nav-links a:hover {
+            color: var(--primary);
+            text-shadow: var(--glow);
+        }
+
+        section {
+            padding: 8rem 5%;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            width: 100%;
+        }
+
+        .section-title {
+            font-size: 2.5rem;
+            margin-bottom: 3rem;
+            text-align: center;
+        }
+
+        .section-title span {
+            color: var(--primary);
+        }
+
+        /* Hero */
+        .hero {
+            position: relative;
+            text-align: center;
+        }
+
+        .tag {
+            display: inline-block;
+            padding: 0.5rem 1rem;
+            background: rgba(0, 240, 255, 0.1);
+            border: 1px solid var(--primary);
+            border-radius: 20px;
+            font-size: 0.8rem;
+            color: var(--primary);
+            margin-bottom: 2rem;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+
+        .hero h1 {
+            font-size: 4.5rem;
+            line-height: 1.1;
+            margin-bottom: 1.5rem;
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            color: var(--text-muted);
+            max-width: 700px;
+            margin: 0 auto 3rem;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 1rem 2.5rem;
+            border-radius: 8px;
+            text-decoration: none;
+            font-family: 'Space Grotesk', sans-serif;
+            font-weight: 700;
+            transition: var(--transition);
+            cursor: pointer;
+            border: none;
+        }
+
+        .btn-primary {
+            background: transparent;
+            color: var(--primary);
+            border: 2px solid var(--primary);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn-primary:hover {
+            background: var(--primary);
+            color: var(--bg-color);
+            box-shadow: var(--glow);
+            transform: translateY(-2px);
+        }
+
+        /* Cards Grid */
+        .grid-2 {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+        }
+
+        .card {
+            background: var(--surface);
+            padding: 2.5rem;
+            border-radius: 16px;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            transition: var(--transition);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
+            opacity: 0;
+            transition: var(--transition);
+        }
+
+        .card:hover {
+            transform: translateY(-10px);
+            border-color: var(--border);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+        }
+
+        .card:hover::before {
+            opacity: 1;
+        }
+
+        .card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            color: var(--text-main);
+        }
+
+        .card p {
+            color: var(--text-muted);
+        }
+
+        /* Architecture */
+        .architecture-flow {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 1rem;
+            padding: 2rem;
+            background: var(--surface);
+            border-radius: 12px;
+            border: 1px solid var(--border);
+        }
+
+        .arch-node {
+            text-align: center;
+            flex: 1;
+            min-width: 150px;
+            padding: 1.5rem;
+            background: rgba(0, 240, 255, 0.05);
+            border: 1px solid rgba(0, 240, 255, 0.2);
+            border-radius: 8px;
+            position: relative;
+            transition: var(--transition);
+        }
+
+        .arch-node:hover {
+            background: rgba(0, 240, 255, 0.1);
+            transform: scale(1.05);
+            box-shadow: var(--glow);
+        }
+
+        .arch-node .icon {
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .arch-arrow {
+            color: var(--secondary);
+            font-size: 1.5rem;
+        }
+
+        /* Tech Stack */
+        .stack-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 1rem;
+        }
+
+        .pill {
+            padding: 0.8rem 1.5rem;
+            background: var(--surface);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 30px;
+            font-family: 'Fira Code', monospace;
+            font-size: 0.9rem;
+            color: var(--primary);
+            transition: var(--transition);
+        }
+
+        .pill:hover {
+            border-color: var(--primary);
+            background: rgba(0, 240, 255, 0.1);
+            transform: translateY(-3px);
+        }
+
+        /* Author */
+        .author-card {
+            max-width: 600px;
+            margin: 0 auto;
+            text-align: center;
+            background: linear-gradient(145deg, var(--surface), #0d121c);
+            padding: 3rem;
+            border-radius: 20px;
+            border: 1px solid var(--border);
+        }
+
+        .author-card h3 {
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+            color: var(--primary);
+        }
+
+        .author-card p {
+            color: var(--text-muted);
+            margin-bottom: 2rem;
+        }
+
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+        }
+
+        .social-links a {
+            color: var(--text-main);
+            text-decoration: none;
+            font-family: 'Space Grotesk', sans-serif;
+            padding: 0.5rem 1rem;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 6px;
+            transition: var(--transition);
+        }
+
+        .social-links a:hover {
+            border-color: var(--secondary);
+            color: var(--secondary);
+        }
+
+        /* Animations */
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s ease-out;
+        }
+
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        @keyframes pulse {
+            0% {
+                box-shadow: 0 0 0 0 rgba(0, 240, 255, 0.4);
+            }
+
+            70% {
+                box-shadow: 0 0 0 15px rgba(0, 240, 255, 0);
+            }
+
+            100% {
+                box-shadow: 0 0 0 0 rgba(0, 240, 255, 0);
+            }
+        }
+
+        .pulse {
+            animation: pulse 2s infinite;
+        }
+
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 3rem;
+            }
+
+            .grid-2 {
+                grid-template-columns: 1fr;
+            }
+
+            .nav-links {
+                display: none;
+            }
+
+            .architecture-flow {
+                flex-direction: column;
+            }
+
+            .arch-arrow {
+                transform: rotate(90deg);
+                margin: 0.5rem 0;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <nav>
+        <div class="brand">VIT</div>
+        <div class="nav-links">
+            <a href="#problema-solucao">Problema/Solução</a>
+            <a href="#arquitetura">Arquitetura</a>
+            <a href="#seguranca">Governança</a>
+            <a href="#autor">Autor</a>
+        </div>
+    </nav>
+
+    <section class="hero" id="home">
+        <div class="container reveal">
+            <div class="tag">DIO Challenge: Construa seu Assistente Virtual com Inteligência Artificial</div>
+            <h1>A Evolução da<br><span style="color: var(--primary);">Consultoria Financeira</span></h1>
+            <p>Conheça o VIT: Um Agente Financeiro alimentado por IA que não apenas conversa, mas cruza seus dados em
+                tempo real para apresentar simulações precisas, seguras e personalizadas. Sem alucinações matemáticas.
+                Sem jargões complexos.</p>
+            <a href="#arquitetura" class="btn btn-primary pulse">Explorar a Arquitetura</a>
+        </div>
+    </section>
+
+    <section id="problema-solucao">
+        <div class="container">
+            <h2 class="section-title">O Paradigma <span>Atual vs. Futuro</span></h2>
+            <div class="grid-2">
+                <div class="card reveal">
+                    <h3>❌ O Problema</h3>
+                    <p>Simuladores tradicionais e LLMs crus operam no vazio. Eles pedem inputs manuais e frequentemente
+                        "alucinam" cálculos financeiros, ignorando totalmente se o usuário possui margem livre real para
+                        um investimento ou crédito. Resultado: Inadimplência e frustração.</p>
+                </div>
+                <div class="card reveal">
+                    <h3>✅ A Solução (VIT)</h3>
+                    <p>VIT separa o cálculo da comunicação. Ele intercepta o extrato do usuário, processa os padrões
+                        matemáticos no Backend e só então entrega um contexto numérico inviolável para a IA traduzir em
+                        linguagem empática. Autonomia total, baseada em dados reais e auditáveis.</p>
+                </div>
+                <div class="card reveal" style="grid-column: 1 / -1; margin-top: 2rem;">
+                    <h3>🧠 Persona & UX: O Mentor Transparente</h3>
+                    <p>Para elevar a experiência, aplicamos a heurística de Nielsen de <strong>"Visibilidade do
+                            Status"</strong>. O chat informa cada passo da análise através de componentes no front. A
+                        persona do VIT é direta e transparente: ele não vende produtos inadequados ao seu perfil e não
+                        finge competências jurídicas ou tributárias.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="arquitetura" style="background: rgba(11, 15, 25, 0.4);">
+        <div class="container">
+            <h2 class="section-title">Design de <span>Sistema</span></h2>
+            <div class="mermaid-container reveal"
+                style="background: rgba(0,0,0,0.2); padding: 2rem; border-radius: 12px; border: 1px solid var(--border); overflow-x: auto; text-align: center;">
+                <div class="mermaid">
+                    flowchart TD
+                    A[Usuário] -->|Interação/Chat| B[Interface UI - Streamlit]
+                    B --> C[Orquestrador Backend]
+
+                    subgraph Processamento de Dados
+                    C -->|Carrega extrato| D[(Dados Sintéticos - JSON/CSV)]
+                    D -->|Retorna transações| E[Motor de Analytics - Pandas]
+                    E -->|Gera contexto: margem livre, padrões de gasto| C
+                    end
+
+                    subgraph Inteligência Artificial
+                    C -->|Prompt estruturado + contexto numérico| F[LLM - Gemini API]
+                    F -->|Resposta bruta| C
+                    end
+
+                    subgraph Governança e Segurança
+                    C -->|Resposta bruta| G[Camada de Compliance]
+                    G -->|Aprovado| H[Resposta Final]
+                    G -->|Bloqueado: alucinação ou dado sensível detectado| I[Resposta de Fallback Segura]
+                    end
+
+                    H -->|Entrega ao usuário| B
+                    I -->|Entrega ao usuário| B
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="seguranca">
+        <div class="container">
+            <h2 class="section-title">Governança e <span>Segurança</span></h2>
+            <div class="grid-2">
+                <div class="card reveal">
+                    <h3>🛡️ Middleware de Compliance</h3>
+                    <p>O grande diferencial do projeto. A resposta da IA não vai direto para o front-end. Ela é
+                        interceptada por um motor Python que varre o texto em busca de anomalias.</p>
+                </div>
+                <div class="card reveal">
+                    <h3>🚫 Adequação LGPD e PII</h3>
+                    <p>Regex rigorosos na camada de saída impedem a "injeção reversa". Se o LLM tentar exibir um CPF ou
+                        número de conta na íntegra, o sistema ativa um Fallback seguro imediatamente.</p>
+                </div>
+                <div class="card reveal">
+                    <h3>🧮 Trava Numérica</h3>
+                    <p>O VIT compara todos os valores monetários produzidos pela IA com os dados extraídos do seu
+                        extrato e perfil no Pandas. Se a IA sugerir uma mensalidade financeira maior que seu orçamento,
+                        a resposta é rejeitada silenciosamente.</p>
+                </div>
+                <div class="card reveal">
+                    <h3>📝 Few-shot Prompting</h3>
+                    <p>Guardrails sistêmicos garantidos por prompts complexos injetando exemplos concretos para
+                        prevenção de assuntos Ilícitos (Lei 8.137) e alucinações operacionais.</p>
+                </div>
+            </div>
+
+            <div style="margin-top: 5rem; text-align: center;">
+                <h3 style="margin-bottom: 2rem; font-family: 'Space Grotesk';">Tech Stack</h2>
+                    <div class="stack-container reveal">
+                        <div class="pill">Java/Spring Boot</div>
+                        <div class="pill">API REST</div>
+                        <div class="pill">Streamlit</div>
+                        <div class="pill">Python/FastAPI</div>
+                        <div class="pill">Docker</div>
+                        <div class="pill">SQL</div>
+                        <div class="pill">Google Gemini API</div>
+                        <div class="pill">Pandas</div>
+                        <div class="pill">Pydantic</div>
+                        <div class="pill">Regex Engine</div>
+                    </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="autor" style="background: rgba(11, 15, 25, 0.4); padding: 4rem 5%;">
+        <div class="container">
+            <div class="author-card reveal">
+                <h3>Eduardo Travassos C. N. Vital</h3>
+                <p>Estudante de Ciência da Computação | Desenvolvedor Backend | Analista de dados | Backend Developer &
+                    Data Analyst | Java • Python • Power BI • SQL • APIs • Microservices</p>
+                <div class="social-links">
+                    <a href="https://github.com/EduTNV" target="_blank">GitHub</a>
+                    <a href="https://linkedin.com/in/" target="_blank">LinkedIn</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        // Animação de Scroll Reveal
+        function reveal() {
+            var reveals = document.querySelectorAll(".reveal");
+            for (var i = 0; i < reveals.length; i++) {
+                var windowHeight = window.innerHeight;
+                var elementTop = reveals[i].getBoundingClientRect().top;
+                var elementVisible = 150;
+                if (elementTop < windowHeight - elementVisible) {
+                    reveals[i].classList.add("active");
+                }
+            }
+        }
+        window.addEventListener("scroll", reveal);
+        reveal(); // Trigger on load
+    </script>
+    <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({ startOnLoad: true, theme: 'dark' });
+    </script>
+</body>
+
+</html>

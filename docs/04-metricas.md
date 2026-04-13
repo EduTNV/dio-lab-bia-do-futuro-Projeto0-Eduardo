@@ -131,4 +131,4 @@ Bateria de reteste executada em `12/04/2026` com 6 mensagens (3 de fluxo princip
 
 As métricas são coletadas internamente pelo backend durante a execução e podem ser acessadas programaticamente via `agente.metricas_sessao()`, que retorna um dicionário com todos os acumulados da sessão. A interface Streamlit não exibe essas métricas ao usuário final — o foco da UI é exclusivamente a experiência conversacional do planejador financeiro.
 
-Ferramentas especializadas em LLMs, como [LangWatch](https://langwatch.ai/) e [LangFuse](https://langfuse.com/), oferecem dashboards avançados com histórico persistente. Para este protótipo, a instrumentação manual implementada é suficiente para demonstrar a capacidade de monitoramento.
+---

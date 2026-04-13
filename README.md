@@ -21,11 +21,30 @@ Desenvolvido como entrega do laboratório **"Construa seu Assistente Virtual com
 
 ## Arquitetura
 
-```
-Usuário → Streamlit (UI) → AgenteVIT (orquestrador)
-                                ├── MotorAnalytics (Pandas) → calcula contexto
-                                ├── Gemini API → gera resposta em linguagem natural
-                                └── CamadaCompliance → valida antes de entregar
+```mermaid
+flowchart TD
+    A[Usuário] -->|Interação/Chat| B[Interface UI - Streamlit]
+    B --> C[Orquestrador Backend]
+
+    subgraph Processamento de Dados
+        C -->|Carrega extrato| D[(Dados Sintéticos - JSON/CSV)]
+        D -->|Retorna transações| E[Motor de Analytics - Pandas]
+        E -->|Gera contexto: margem livre, padrões de gasto| C
+    end
+
+    subgraph Inteligência Artificial
+        C -->|Prompt estruturado + contexto numérico| F[LLM - Gemini API]
+        F -->|Resposta bruta| C
+    end
+
+    subgraph Governança e Segurança
+        C -->|Resposta bruta| G[Camada de Compliance]
+        G -->|Aprovado| H[Resposta Final]
+        G -->|Bloqueado: alucinação ou dado sensível detectado| I[Resposta de Fallback Segura]
+    end
+
+    H -->|Entrega ao usuário| B
+    I -->|Entrega ao usuário| B
 ```
 
 ## Como Rodar
